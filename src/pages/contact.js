@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css'
 
@@ -9,7 +10,20 @@ const Contact = () => {
             item.value="";
         })
         document.querySelector('.checkbox-field input[type=checkbox]').checked = false
+
+        document.querySelectorAll('.input-field input:invalid').forEach(item => {
+            item.classList.remove('blur')
+        })
+        document.querySelector('.input-field textarea:invalid').classList.remove('blur')
     }
+
+    const checkInputs = () => {
+        document.querySelectorAll('.input-field input:invalid').forEach(item => {
+            item.classList.add('blur')
+        })
+        document.querySelector('.input-field textarea:invalid').classList.add('blur')
+    }
+    
     return(
         <section className="contact-page">
             <div className="container">
@@ -22,25 +36,25 @@ const Contact = () => {
 
                 <form action="#" id="contact_form" onSubmit={submitFunction}>
                     <div className="input-field grid-2-field">
-                        <div className="input-field error">
+                        <div className="input-field">
                             <input type="text" id="first_name" placeholder="Enter your first name" required />
                             <label htmlFor="first_name" className="active">First name</label>
                             <span className="helper-text" hidden>Please enter your first name</span>
                         </div>
-                        <div className="input-field error">
+                        <div className="input-field">
                             <input type="text" id="last_name" placeholder="Enter your last name" required />
                             <label htmlFor="last_name" className="active">Last name</label>
                             <span className="helper-text" hidden>Please enter your last name</span>
                         </div>
                     </div>
 
-                    <div className="input-field error">
+                    <div className="input-field">
                         <input type="email" id="email" placeholder="yourname@email.com" required />
                         <label htmlFor="email" className="active">Email</label>
                         <span className="helper-text" hidden>Please enter your email</span>
                     </div>
 
-                    <div className="input-field error">
+                    <div className="input-field">
                         <textarea id="message" placeholder="Send me a message and I'll reply you as soon as possible..." required></textarea>
                         <label htmlFor="email" className="active">Message</label>
                         <span className="helper-text" hidden>Please enter a message</span>
@@ -52,7 +66,7 @@ const Contact = () => {
                     </label>
 
                     <div className="submit-btn-wrapper">
-                        <button id="btn__submit" className="submit-btn">Send message</button>
+                        <button id="btn__submit" className="submit-btn" onClick={checkInputs}>Send message</button>
                     </div>
                 </form>
             </div>
